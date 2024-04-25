@@ -47,4 +47,4 @@ After installation, you can start the development server:
 ```bash
 npm run dev
 ```
-The application will be accessible at `http://localhost:3000` by default.
+The application will be accessible at `http://localhost:3000` by default
