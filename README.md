@@ -1,6 +1,6 @@
 # Blackjack Game
 
-Welcome to the Blackjack Game project! This is a web-based application built using React with TypeScript, CSS, and powered by Vercel's Next.js framework. This project aims to provide a fun and interactive experience for playing the classic card game Blackjack online.
+Welcome to the Blackjack Game project! This is a web-based application built using React NextJS bootstrapped with TailwindCSS written with TypeScript, CSS, and powered by Vercel's Next.js framework. This project aims to provide a fun and interactive experience for playing the classic card game Blackjack online.
 
 ![Blackjack Game Screenshot](<screenshot-url>)
 
