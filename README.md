@@ -38,7 +38,7 @@ To run this project locally, follow these steps:
     ```
 3. Install dependencies
     ```bash
-    npm install ...
+    npm install TailWindCSS
     ```
 
 ## 💻 Usage
