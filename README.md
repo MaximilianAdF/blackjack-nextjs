@@ -30,6 +30,7 @@ You can find a live demo of the Blackjack Game [here](<demo-url>).
 - **Statistics Tracking**: Keep track of your performance with built-in statistics tracking.
 - **Multiplayer**: The game is designed to handle multiple players playing on the same table against one dealer
 
+<a id='installation'></a>
 ## 👨‍💻 Installation
 
 To run this project locally, follow these steps:
@@ -50,7 +51,7 @@ To run this project locally, follow these steps:
 
 ## 💻 Usage
 
-After installation, you can start the development server:
+After [installation](https://gits-15.sys.kth.se/maadf/blackjack/edit/main/README.md#installation), you can start the development server:
 ```bash
 npm run dev
 ```
