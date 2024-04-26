@@ -46,6 +46,9 @@ To run this project locally, follow these steps:
     ```
 3. Install dependencies
     ```bash
+    npm install next react react-dom
+    npm install -g node@latest
+    npm install -g npm@latest
     npm install TailWindCSS
     ```
 
