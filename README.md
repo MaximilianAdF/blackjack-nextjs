@@ -46,10 +46,10 @@ To run this project locally, follow these steps:
     ```
 3. Install dependencies
     ```bash
-    npm install next react react-dom
-    npm install -g node@latest
-    npm install -g npm@latest
-    npm install TailWindCSS
+    npm install next@^14.2.3 react@^18.3.0 react-dom@^18.3.0
+    npm install tailwindcss@^3.4.3
+    npm install node@20.12.2
+    npm install npm@10.5.0
     ```
 
 ## 💻 Usage
