@@ -45,11 +45,26 @@ To run this project locally, follow these steps:
     cd ../../blackjack
     ```
 3. Install dependencies
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Icon-Mac.svg/2048px-Icon-Mac.svg.png" alt="Mac" width="30">
+    
     ```bash
-    npm install next@^14.2.3 react@^18.3.0 react-dom@^18.3.0
-    npm install tailwindcss@^3.4.3
-    npm install node@20.12.2
-    npm install npm@10.5.0
+    sudo npm -g install next@^14.2.3 react@^18.3.0 react-dom@^18.3.0
+    sudo npm -g install tailwindcss@^3.4.3
+    sudo npm -g install typescript@^5.4.5
+    sudo npm -g install node@20.12.2
+    sudo npm -g install npm@10.5.0
+    ```
+    <br>
+    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Windows_icon_logo.png" alt="Windows" width="30">
+    
+    ```bash
+    npm -g install next@^14.2.3 react@^18.3.0 react-dom@^18.3.0
+    npm -g install tailwindcss@^3.4.3
+    npm -g install typescript@^5.4.5
+    npm -g install node@20.12.2
+    npm -g install npm@10.5.0
     ```
 
 ## 💻 Usage
