@@ -5,7 +5,7 @@ export class Player {
     private hand: Card[] = [];
     private balance: number;
 
-    constructor(balance: number) {
+    constructor makePlayer(balance: number) {
         this.balance = balance;
     }
 
