@@ -5,10 +5,13 @@ export class Player {
     private hand: Card[] = [];
     private balance: number;
 
-    constructor makePlayer(balance: number) {
+    /**
+     * Constructor for the Player class
+     * @param balance 
+     */
+    constructor(balance: number) {
         this.balance = balance;
     }
-
 
     /**
      * Draw a card from the deck
@@ -26,7 +29,11 @@ export class Player {
      * @param amount 
      */
     public bet(amount: number): void {
-        this.balance -= amount;
+        if (amount > this.balance) {
+            throw new Error('Insufficient balance');
+        } else if (amount < 0) {
+            this.balance -= amount;
+        }
     }
 
     /**
