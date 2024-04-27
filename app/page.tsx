@@ -1,5 +1,5 @@
 import Image from "next/image";
-import card from '../cards/2C.svg'
+import card from '../assets/cards/2C.svg';
 
 
 export default function Home() {
