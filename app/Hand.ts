@@ -42,7 +42,9 @@ export class Hand {
 
     /**
      * Hand has chosen to split into two hands
-     * Calling this method requires that after splitting, both hands hit once automatically.
+     * Calling this method requires:
+     * - that after splitting, both hands hit once automatically.
+     * - that the player has enough chips to support the new hand (i.e. betAmount * 2 <= player balance)
      * @param deck 
      * @returns Hand[] - the two new hands after splitting
      */
@@ -52,7 +54,7 @@ export class Hand {
         } else if (this.cards.length !== 2) {
             throw new Error('Cannot split a hand that does not have exactly two cards');
         } else if (this.cards[0].getValue() !== this.cards[1].getValue()) {
-            throw new Error('Cannot split a hand with cards of different ranks');
+            throw new Error('Cannot split a hand with cards of different values');
         } else {
             this.split = true; // Mark both hands as split
             this.cards = [this.cards[0]]; // Keep the first card in the original hand
