@@ -45,11 +45,46 @@ export class Player {
     }
 
     /**
-     * Number of chips in balance
+     * Value of balance
      * @param 
      */
     public getBalance(): number {
         return this.balance;
+    }
+
+    /**
+     * returns the number off each chips the player
+     * have in a list staring from the largest.
+     * @param 
+     */
+    public getChips(): number[] {
+        const chipValues = [5000, 1000, 100, 50, 25, 10, 5, 1];
+        let remainingBalance = this.balance;
+        const chips: number[] = [];
+
+        for (const value of chipValues) {
+            const count = Math.floor(remainingBalance / value);
+            chips.push(count);
+            remainingBalance -= count * value;
+        }
+
+        return chips;
+    }
+
+
+    /**
+     * Returns the combined value of the chips that enterd
+     * @param 
+     */
+    public chipsToBal(chips: number[]): number{
+        const chipValues = [5000, 1000, 100, 50, 25, 10, 5, 1];
+        let addedBal = 0;
+        for (let i = 0; i < 7; i++) {
+            addedBal += chips[i]*chipValues[i];
+        }
+
+        return addedBal;
+
     }
 
     /**
@@ -59,6 +94,7 @@ export class Player {
     public getHand(): Card[] {
         return this.hand;
     }
+
 
 
 }
