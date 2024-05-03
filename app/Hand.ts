@@ -12,11 +12,11 @@ export class Hand {
      * Constructor for the Player class
      * @param balance 
      */
-    constructor(betAmount: number, hasDouble: boolean, hasSplit: boolean, hasStand: boolean, cards: Card[] = []) {
+    constructor(betAmount: number,hasSplit: boolean = false, cards: Card[] = []) {
         this.betAmount = betAmount;
-        this.hasDouble = hasDouble;
+        this.hasDouble = false;
         this.hasSplit = hasSplit;
-        this.hasStand = hasStand;
+        this.hasStand = false;
         this.cards = cards;
     }
 
@@ -58,7 +58,7 @@ export class Hand {
         } else {
             this.hasSplit = true; // Mark both hands as split
             this.cards = [this.cards[0]]; // Keep the first card in the original hand
-            const newHand = new Hand(this.betAmount, this.hasDouble, this.hasSplit, this.hasStand, [this.cards[1]]); // Create a new hand with the second card
+            const newHand = new Hand(this.betAmount, this.hasSplit, [this.cards[1]]); // Create a new hand with the second card
             return [this, newHand];
         }
     }

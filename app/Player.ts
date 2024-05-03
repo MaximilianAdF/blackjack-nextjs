@@ -1,9 +1,9 @@
 import { Card } from './Card';
-import { Deck } from './Deck';
 import { Balance } from './Balance';
+import { Hand } from './Hand';
 
 export class Player {
-    private hand: Card[] = [];
+    private hand: Hand | null;
     private balance: Balance;
 
     /**
@@ -12,17 +12,16 @@ export class Player {
      */
     constructor(amount: number) {
         this.balance = new Balance(amount);
+        this.hand = null;
     }
 
+
     /**
-     * Draw a card from the deck
-     * @returns Deck | void
+     * Makes a new hand for the player with the betted abount
+     * @param amount
      */
-    public drawCard(deck: Deck): void {
-        const card = deck.dealCard();
-        if (card) {
-            this.hand.push(card);
-        }
+    public newHand(amount: number):void{
+        this.hand = new Hand(amount);
     }
 
     /**
@@ -59,7 +58,12 @@ export class Player {
      * @param 
      */
     public getHand(): Card[] {
-        return this.hand;
+        if( this.hand != null){
+            return this.hand.getCards();
+        } else{
+            throw new Error('No hand have been made yet');
+        }
+
     }
 
 
