@@ -19,8 +19,8 @@ export class Player {
      * Makes a new hand for the player with the betted abount
      * @param amount
      */
-    public newHand(amount: number):void{
-        this.hand = new Hand(amount);
+    public newHand(balance: Balance, amount: number):void{
+        this.hand = new Hand(balance, amount);
     }
 
     /**
@@ -32,7 +32,7 @@ export class Player {
             throw new Error('Insufficient balance');
         } else if (amount < 0) {
             this.balance.removeBalance(amount);
-            this.newHand(amount);
+            this.newHand(this.balance, amount);
         }
     }
 

@@ -105,8 +105,5 @@ export class Balance {
      */
     public getValue(): number {
         return this.value|| 0;
-    }
-
-    
-    
+    }   
 }
