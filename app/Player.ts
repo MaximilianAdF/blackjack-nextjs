@@ -15,7 +15,6 @@ export class Player {
         this.hand = null;
     }
 
-
     /**
      * Makes a new hand for the player with the betted abount
      * @param amount
@@ -25,7 +24,7 @@ export class Player {
     }
 
     /**
-     * Number of chips to bet
+     * Amount to bet and makes a new hand
      * @param amount 
      */
     public bet(amount: number): void {
@@ -33,6 +32,7 @@ export class Player {
             throw new Error('Insufficient balance');
         } else if (amount < 0) {
             this.balance.removeBalance(amount);
+            this.newHand(amount);
         }
     }
 
@@ -40,8 +40,13 @@ export class Player {
      * Number of chips to won
      * @param amount 
      */
-    public win(amount: number): void {      
-        this.balance.addBalance(amount);
+    public win(hand: Hand | null = this.hand): void {
+        if (hand !== null && hand !== undefined) {
+            const betAmount = hand.getBetAmount();
+            this.balance.addBalance(betAmount);
+        } else {
+            throw new Error('No hand has been made yet');
+        }
     }
 
     /**

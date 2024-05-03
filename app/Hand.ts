@@ -9,8 +9,8 @@ export class Hand {
     private cards: Card[]       // Cards in the hand
 
     /**
-     * Constructor for the Player class
-     * @param balance 
+     * Constructor for the Hand class
+     * @param betAmount
      */
     constructor(betAmount: number,hasSplit: boolean = false, cards: Card[] = []) {
         this.betAmount = betAmount;
@@ -77,6 +77,7 @@ export class Hand {
         } else {
             this.hasDouble = true;
             this.betAmount *= 2;
+            
             this.hit(deck); // Automatically hit once after doubling down
         }
     }
