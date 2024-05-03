@@ -53,6 +53,42 @@ export class Balance {
     }
 
     /**
+     * Remove specific amount of bal and chips from a player chip stack
+     * @param amount 
+     * @throws Error if there are not enough bal to remove
+     */
+    public removeBalance(amount:number): void {
+        if (amount <= this.value) {
+            let remainingAmount = amount;
+            for (const value of this.chipValues) {
+                const chip = new Chip(value);
+                const numberOfChips = Math.floor(remainingAmount / value);
+                this.removeChips(chip, numberOfChips)
+                remainingAmount -= numberOfChips;
+            }
+            this.value -= amount;
+        } else {
+            throw new Error('Not enough balance');
+        }
+    }
+
+    /**
+     * Add specific amount of balance and chips to a player's chip stack
+     * @param amount 
+     */
+    public addBalance(amount: number): void {
+        let remainingAmount = amount;
+        for (const value of this.chipValues) {
+            const chip = new Chip(value);
+            const numberOfChips = Math.floor(remainingAmount / value);
+            this.addChips(chip, numberOfChips);
+            remainingAmount -= numberOfChips * value;
+        }
+        this.value += amount;
+    }
+
+
+    /**
      * Method to get the amount of chips of a specific type in the user's chip stack
      * @param chip
      * @returns number
@@ -60,4 +96,17 @@ export class Balance {
     public getChipAmount(chip: Chip): number {
         return this.chipStack.get(chip) || 0;
     }
+
+
+    /**
+     * Method to get the amount of chips of a specific type in the user's chip stack
+     * @param chip
+     * @returns number
+     */
+    public getValue(): number {
+        return this.value|| 0;
+    }
+
+    
+    
 }
