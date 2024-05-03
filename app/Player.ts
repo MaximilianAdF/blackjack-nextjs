@@ -71,6 +71,22 @@ export class Player {
         return chips;
     }
 
+
+    /**
+     * Returns the combined value of the chips that enterd
+     * @param 
+     */
+    public chipsToBal(chips: number[]): number{
+        const chipValues = [5000, 1000, 100, 50, 25, 10, 5, 1];
+        let addedBal = 0;
+        for (let i = 0; i < 7; i++) {
+            addedBal += chips[i]*chipValues[i];
+        }
+
+        return addedBal;
+
+    }
+
     /**
      * Return the cards in the players hand
      * @param 
