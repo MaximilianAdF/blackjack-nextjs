@@ -1,11 +1,18 @@
-# Blackjack Game
+<h1 align="center"> Blackjack Game </h1>
 
 Welcome to the Blackjack Game project! This is a web-based application built using React NextJS bootstrapped with TailwindCSS and powered by Vercel's Next.js framework. Programming languages utilized are TypeScript, CSS, and HTML in conjunction written in .tsx files. This project aims to provide a fun and interactive experience for playing the classic card game Blackjack online. The game will offer the option of playing by yourself or alongside your friends against a singular dealer. With the help of Socket.IO it is possible to handle real-time bi-directional communication between the web client and the server, making multiplayer tables possible.
 
 
-## 🛠️ Frameworks, Tools & Languages
+<h2 align="center"> 🛠️ Frameworks, Tools & Languages </h2>
+<h3 align="center">
+    
 [![Tools](https://skillicons.dev/icons?i=react,nextjs,ts,html,css)](https://skillicons.dev)
-<img src="https://gits-15.sys.kth.se/storage/user/23641/files/93a5954f-ac6c-43b9-8449-c213998304bb" alt="Socket.IO" width="50">
+<img src="https://gits-15.sys.kth.se/storage/user/23641/files/93a5954f-ac6c-43b9-8449-c213998304bb" alt="Socket.IO" width="50"><br>
+[![Powered by Vercel](https://raw.githubusercontent.com/abumalick/powered-by-vercel/master/powered-by-vercel.svg)](https://vercel.com?utm_source=powered-by-vercel)
+
+</h3>
+<br>
+<br>
 <br>
 
 
