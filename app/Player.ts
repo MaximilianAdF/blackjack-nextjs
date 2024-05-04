@@ -1,38 +1,38 @@
 import { Card } from './Card';
-import { Deck } from './Deck';
+import { Balance } from './Balance';
+import { Hand } from './Hand';
 
 export class Player {
-    private hand: Card[] = [];
-    private balance: number;
+    private hand: Hand | null;
+    private balance: Balance;
 
     /**
      * Constructor for the Player class
      * @param balance 
      */
-    constructor(balance: number) {
-        this.balance = balance;
+    constructor(amount: number) {
+        this.balance = new Balance(amount);
+        this.hand = null;
     }
 
     /**
-     * Draw a card from the deck
-     * @returns Deck | void
+     * Makes a new hand for the player with the betted abount
+     * @param amount
      */
-    public drawCard(deck: Deck): void {
-        const card = deck.dealCard();
-        if (card) {
-            this.hand.push(card);
-        }
+    public newHand(balance: Balance, amount: number):void{
+        this.hand = new Hand(balance, amount);
     }
 
     /**
-     * Number of chips to bet
+     * Amount to bet and makes a new hand
      * @param amount 
      */
     public bet(amount: number): void {
-        if (amount > this.balance) {
+        if (amount > this.balance.getValue()) {
             throw new Error('Insufficient balance');
         } else if (amount < 0) {
-            this.balance -= amount;
+            this.balance.removeBalance(amount);
+            this.newHand(this.balance, amount);
         }
     }
 
@@ -40,25 +40,37 @@ export class Player {
      * Number of chips to won
      * @param amount 
      */
-    public win(amount: number): void {      
-        this.balance += amount;
+    public win(hand: Hand | null = this.hand): void {
+        if (hand !== null && hand !== undefined) {
+            const betAmount = hand.getBetAmount();
+            this.balance.addBalance(betAmount);
+        } else {
+            throw new Error('No hand has been made yet');
+        }
     }
 
     /**
-     * Number of chips in balance
+     * Value of balance
      * @param 
      */
     public getBalance(): number {
-        return this.balance;
+        return this.balance.getValue();
     }
+
 
     /**
      * Return the cards in the players hand
      * @param 
      */
     public getHand(): Card[] {
-        return this.hand;
+        if( this.hand != null){
+            return this.hand.getCards();
+        } else{
+            throw new Error('No hand have been made yet');
+        }
+
     }
+
 
 
 }
