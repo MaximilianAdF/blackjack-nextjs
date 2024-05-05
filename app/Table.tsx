@@ -4,7 +4,10 @@
   import Image from "next/image";
   import { FC } from "react";
 
+  import card from "../assets/cards/2H.svg";
+
   /** TODO: Add grainy look to the suit symbols */
+  /** Making this responsive in  */
   const Table: FC = () => {
     const suitPaths = [
       require("../assets/suits/DiamondPattern.png"),
