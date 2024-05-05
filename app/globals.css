@@ -34,7 +34,7 @@ body {
 }
 
 .dealer-half-circle {
-    width: min(70%, 1100px);
+    width: min(55%, 1400px);
     height: 45%;
     border: 3px solid #ffffff;
     background-color: rgb(28, 58, 61);
@@ -61,7 +61,7 @@ body {
 }
 
 .hollow-half-ellipse {
-    width: min(70%, 1180px);
+    width: min(60%, 1480px);
     height: 45%;
     border-right: 100px solid rgb(28, 58, 61);
     border-left: 100px solid rgb(28, 58, 61);
@@ -76,7 +76,7 @@ body {
 }
 
 .half-ellipse-border-out {
-    width: min(69.7%, 1170px);
+    width: min(59.7%, 1470px);
     height: 45%;
     border-right: 100px solid #ffffff;
     border-left: 100px solid #ffffff;
@@ -91,7 +91,7 @@ body {
 }
 
 .half-ellipse-border-in {
-    width: min(70.2%, 1190px);
+    width: min(60.2%, 1495px);
     height: 45%;
     border-right: 100px solid #ffffff;
     border-left: 100px solid #ffffff;
