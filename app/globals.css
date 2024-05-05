@@ -91,7 +91,7 @@ body {
 }
 
 .half-ellipse-border-in {
-    width: 70.2%;
+    width: min(70.2%, 1190px);
     height: 45%;
     border-right: 100px solid #ffffff;
     border-left: 100px solid #ffffff;
