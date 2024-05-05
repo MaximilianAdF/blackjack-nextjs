@@ -10,42 +10,47 @@ export default function Home() {
     require("../assets/suits/HeartPattern.png"),
   ];
 
-  const pattern_row = [];
-  const pattern_col = [];
-  for (let i = 0; i < 1; i++) {
-    pattern_row.push(
-      <div key={`pattern`+i} className="grid grid-cols-2 gap-6">
-        {suitPaths.map((path, index) =>
-          index % 2 === 0 ? (
-            <div key={index} className="mix-blend-soft-light">
-              <Image key={index} src={path.default} alt="suit" width={30} height={30} />
+  const pattern = [];
+  //Horizontal & vertical background pattern
+  for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < 15; i++) {
+      pattern.push(
+        <div key={"pattern row:"+j+" col:"+i} className="flex justify-center items-center" style={{ position: "relative", top: `${j * 100 + 70}px`, left: `${-100*(7-i)}px` }}>
+          <div className="absolute m-auto mix-blend-screen opacity-15">
+            <div className="dot"></div>
+            <div className="line1"></div>
+            <div key={`pattern-col`} className="grid grid-cols-2 gap-6">
+              {suitPaths.map((path, index) =>
+                index % 2 === 0 ? (
+                  <div key={index} className="">
+                    <Image key={index} src={path.default} alt="suit" width={30} height={30} />
+                  </div>
+                ) : null
+              )}
             </div>
-          ) : null
-        )}
-      </div>
-    )
-    pattern_col.push(
-      <div key={`pattern`+i} className="grid gap-6">
-        {suitPaths.map((path, index) => (
-          index % 2 !== 0 ? (
-            <div key={index} className="">
-              <Image key={index} src={path.default} alt="suit" width={30} height={30} />
+          </div>
+          <div className="absolute m-auto mix-blend-screen opacity-15">
+            <div className="line2"></div>
+            <div key={`pattern-row`} className="grid gap-6">
+              {suitPaths.map((path, index) => (
+                index % 2 !== 0 ? (
+                  <div key={index} className="">
+                    <Image key={index} src={path.default} alt="suit" width={30} height={30} />
+                  </div>
+                ) : null
+              ))}
             </div>
-          ) : null
-        ))}
-      </div>
-    
-    )
+          </div>
+        </div>
+      )
+    }
   }
 
   //* TODO: Add grainy look to the background */
   return (
-    <div className="h-screen flex justify-center items-center" style={{ backgroundColor: 'rgb(0, 80, 50)'}}>
-      <div className="absolute m-auto">
-        {pattern_row}
-      </div>
-      <div className="absolute m-auto">
-        {pattern_col}
+    <div className="h-screen" style={{ backgroundColor: 'rgb(0, 80, 50)' }}>
+      <div className="pattern-container" style={{ zIndex: "-1" }}>
+        {pattern}
       </div>
     </div>
   );
