@@ -2,6 +2,37 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+
+/* Regular */
+@font-face {
+    font-family: 'Volkorn';
+    src: url("../assets/fonts/Vollkorn-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Bold */
+@font-face {
+    font-family: 'Volkorn';
+    src: url("../assets/fonts/Vollkorn-Bold.ttf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Italic */
+@font-face {
+    font-family: 'Volkorn';
+    src: url("../assets/fonts/Vollkorn-Italic.ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+body {
+    font-family: 'Volkorn', sans-serif;
+    overflow: hidden;
+}
+
 .line1 {
     border-top: 1px solid rgba(0,105,80,255);
     width: 80px;
@@ -88,6 +119,7 @@ body {
     margin-top: -15%;
     left: 50%;
     transform: translateX(-50%) rotate(180deg) scale(1.41);
+    z-index: 0;
 }
 
 .half-ellipse-border-in {
@@ -103,6 +135,7 @@ body {
     margin-top: -15%;
     left: 50%;
     transform: translateX(-50%) rotate(180deg) scale(1.39); 
+    z-index: 0;
 }
 
 .player-squares {
@@ -121,6 +154,7 @@ body {
     border-radius: 5px;
     height: 100%;
     width: 8%;
+    z-index: 1;
 }
 
 .player-square:nth-child(1) {
@@ -132,16 +166,16 @@ body {
 
 .player-square:nth-child(2) {
     position: relative;
-    bottom: 35%;
-    left: 0;
-    rotate: 25deg;
+    bottom: 25%;
+    left: 2%;
+    rotate: 22deg;
 }
 
 .player-square:nth-child(4) {
     position: relative;
-    bottom: 35%;
-    left: 0;
-    rotate: -25deg;
+    bottom: 25%;
+    left: -2%;
+    rotate: -22deg;
 }
 
 .player-square:nth-child(5) {
@@ -151,11 +185,39 @@ body {
     rotate: -42deg;
 }
 
-.dealer-text-shape {
+.dealer-text-container {
+    position: relative;
     rotate: 180deg;
 }
 
 .dealer-text {
+    font-family: 'Volkorn';
+    font-weight: bold;
     font-size: 8px;
+    fill: white;
+}
+
+.insurance-text-container {
+    position: relative;
+    rotate: 180deg;
+    top: -35%;
+}
+ 
+.insurance-text {
+    font-family: 'Volkorn';
+    font-weight: bold;
+    font-size: 9px;
+    fill: white;
+}
+
+.dealer-info-container {
+    position: relative;
+    top: -30%;
+}
+
+.dealer-info {
+    font-family: 'Volkorn';
+    font-size: 5px;
+    font-style: italic;
     fill: white;
 }

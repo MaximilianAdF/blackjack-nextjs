@@ -1,6 +1,6 @@
   "use client";
 
-  import usewindowDimensions from '@/app/window';
+  import usewindowDimensions from '@/app/utils/window';
   import Image from "next/image";
   import { FC } from "react";
 
@@ -17,6 +17,7 @@
 
     // Get the height and width of the window
     const { height, width } = usewindowDimensions();
+
 
     const pattern = [];
     //Horizontal & vertical background pattern
@@ -59,28 +60,56 @@
     //* TODO: Add text on table */
     return (
       <div className="h-screen" style={{ backgroundColor: 'rgb(0, 80, 50)' }}>
-        <div className="pattern-container" style={{ zIndex: "-1"}}>
+        <div className="pattern-container" style={{ zIndex: "-1" }}>
           {pattern}
         </div>
         <div className="dealer-half-circle">
-          <svg className="dealer-text-shape" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
-            <path fill="none" id="circlePath" d="M 50, 27 a 80, 60 0 0,0 100,0" />
-            <text className='dealer-text'>
-              <textPath href="#circlePath" startOffset="50%" text-anchor="middle">
-                BLACKJACK PAYS 3 TO 2
-              </textPath>
-            </text>
-          </svg>
+          <div className="dealer-text-container">
+            <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+              <path fill="none" id="circlePath1" d="M 50, 27 a 80, 60 0 0,0 100,0" />
+              <text className='dealer-text'>
+                <textPath href="#circlePath1" startOffset="50%" text-anchor="middle">
+                  BLACKJACK PAYS 3 TO 2
+                </textPath>
+              </text>
+            </svg>
+          </div>
         </div>
         <div className="half-ellipse-border-out"></div>
         <div className="half-ellipse-border-in"></div>
-        <div className="hollow-half-ellipse"></div>
+        <div className="hollow-half-ellipse">
+          <div className="insurance-text-container">
+              <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="none" id="circlePath3" d="M 50, 27 a 80, 45 0 0,0 100,0" />
+                  <text className='insurance-text'>
+                      <textPath href="#circlePath3" startOffset="50%" text-anchor="middle">
+                          INSURANCE PAYS 2 TO 1
+                      </textPath>
+                  </text>
+              </svg>
+          </div>
+        </div>
         <div className="player-squares">
-          <div className="player-square"></div>
-          <div className="player-square"></div>
-          <div className="player-square"></div>
-          <div className="player-square"></div>
-          <div className="player-square"></div>
+          <div className="player-square">
+          </div>
+          <div className="player-square">
+          </div>
+          <div className="player-square">
+          </div>
+          <div className="player-square">
+          </div>
+          <div className="player-square">
+          </div>
+        </div>
+        <div className="dealer-info-container">
+          <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+            <path fill="none" id="circlePath2" d="M 50, 27 a 80, 80 0 0,0 100,0" />
+            <text className='dealer-info'>
+              <textPath href="#circlePath2" startOffset="50%" text-anchor="middle">
+                Dealer must stand on 17 and must draw to 16
+              </textPath>
+            </text>
+          </svg>
         </div>
       </div>
     );
