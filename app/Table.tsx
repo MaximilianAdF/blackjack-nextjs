@@ -4,9 +4,8 @@
   import Image from "next/image";
   import { FC } from "react";
 
-  import card from "../assets/cards/2H.svg";
-
   /** TODO: Add grainy look to the suit symbols */
+  /** TODO: Make the pattern responsive  in size to screen dimensions & make pattern-container into grid for fixed amount of pattern */
   /** Making this responsive in  */
   const Table: FC = () => {
     const suitPaths = [
@@ -21,10 +20,10 @@
 
     const pattern = [];
     //Horizontal & vertical background pattern
-    for (let j = 0; j < height/70; j++) {
-      for (let i = 0; i < width/70; i++) {
+    for (let j = 0; j < height/100; j++) {
+      for (let i = 0; i < width/100; i++) {
         pattern.push(
-          <div key={"pattern row:"+j+" col:"+i} className="flex justify-center items-center" style={{ position: "relative", top: `${j * 100 + 70}px`, left: `${-100*(Math.floor((width/70)/2)-i)}px` }}>
+          <div key={"pattern row:"+j+" col:"+i} className="flex justify-center items-center" style={{ position: "relative", top: `${j * 100 + 70}px`, left: `${-100*(Math.floor((width/100)/2)-i)}px` }}>
             <div className="absolute m-auto mix-blend-screen opacity-15">
               <div className="dot"></div>
               <div className="line1"></div>
@@ -56,15 +55,33 @@
     }
 
     //* TODO: Add grainy look to the background */
+    //* TODO: Add spot for insurance on tbale
+    //* TODO: Add text on table */
     return (
       <div className="h-screen" style={{ backgroundColor: 'rgb(0, 80, 50)' }}>
-        <div className="pattern-container" style={{ zIndex: "-1" }}>
+        <div className="pattern-container" style={{ zIndex: "-1"}}>
           {pattern}
         </div>
-        <div className="dealer-half-circle"></div>
+        <div className="dealer-half-circle">
+          <svg className="dealer-text-shape" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+            <path fill="none" id="circlePath" d="M 50, 27 a 80, 60 0 0,0 100,0" />
+            <text className='dealer-text'>
+              <textPath href="#circlePath" startOffset="50%" text-anchor="middle">
+                BLACKJACK PAYS 3 TO 2
+              </textPath>
+            </text>
+          </svg>
+        </div>
         <div className="half-ellipse-border-out"></div>
         <div className="half-ellipse-border-in"></div>
-        <div className="hollow-half-ellipse"></div> 
+        <div className="hollow-half-ellipse"></div>
+        <div className="player-squares">
+          <div className="player-square"></div>
+          <div className="player-square"></div>
+          <div className="player-square"></div>
+          <div className="player-square"></div>
+          <div className="player-square"></div>
+        </div>
       </div>
     );
   }
