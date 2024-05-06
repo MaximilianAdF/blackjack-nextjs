@@ -80,4 +80,4 @@ After [installation](https://gits-15.sys.kth.se/maadf/blackjack/edit/main/README
 ```bash
 npm run dev
 ```
-The application will be accessible at `http://localhost:3000` by default
+The application will be accessible at `http://localhost:3000` by default.
