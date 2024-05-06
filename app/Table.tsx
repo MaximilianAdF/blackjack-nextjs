@@ -68,7 +68,7 @@
             <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
               <path fill="none" id="circlePath1" d="M 50, 27 a 80, 60 0 0,0 100,0" />
               <text className='dealer-text'>
-                <textPath href="#circlePath1" startOffset="50%" text-anchor="middle">
+                <textPath href="#circlePath1" startOffset="50%" textAnchor="middle">
                   BLACKJACK PAYS 3 TO 2
                 </textPath>
               </text>
@@ -82,7 +82,7 @@
               <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
                   <path fill="none" id="circlePath3" d="M 50, 27 a 80, 45 0 0,0 100,0" />
                   <text className='insurance-text'>
-                      <textPath href="#circlePath3" startOffset="50%" text-anchor="middle">
+                      <textPath href="#circlePath3" startOffset="50%" textAnchor="middle">
                           INSURANCE PAYS 2 TO 1
                       </textPath>
                   </text>
@@ -105,7 +105,7 @@
           <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
             <path fill="none" id="circlePath2" d="M 50, 27 a 80, 80 0 0,0 100,0" />
             <text className='dealer-info'>
-              <textPath href="#circlePath2" startOffset="50%" text-anchor="middle">
+              <textPath href="#circlePath2" startOffset="50%" textAnchor="middle">
                 Dealer must stand on 17 and must draw to 16
               </textPath>
             </text>
