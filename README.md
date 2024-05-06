@@ -61,6 +61,10 @@ To run this project locally, follow these steps:
     sudo npm -g install typescript@^5.4.5
     sudo npm -g install node@20.12.2
     sudo npm -g install npm@10.5.0
+    sudo npm -g install socket.io
+    sudo npm -g install express
+    sudo npm -g install nodemon
+    sudo npm -g install ts-node
     ```
     <br>
     
@@ -72,6 +76,10 @@ To run this project locally, follow these steps:
     npm -g install typescript@^5.4.5
     npm -g install node@20.12.2
     npm -g install npm@10.5.0
+    npm -g install socket.io
+    npm -g install express
+    npm -g install nodemon
+    npm -g install ts-node
     ```
 
 ## 💻 Usage
