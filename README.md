@@ -1,7 +1,6 @@
 <h1 align="center"> Blackjack Game </h1>
 
-Welcome to the Blackjack Game project! This is a web-based application built using React NextJS bootstrapped with TailwindCSS and powered by Vercel's Next.js framework. Programming languages utilized are TypeScript, CSS, and HTML in conjunction written in .tsx files. This project aims to provide a fun and interactive experience for playing the classic card game Blackjack online. The game will offer the option of playing by yourself or alongside your friends against a singular dealer. With the help of Socket.IO it is possible to handle real-time bi-directional communication between the web client and the server, making multiplayer tables possible.
-
+Welcome to the Blackjack Game project! This is a web-based application built using React NextJS bootstrapped with TailwindCSS and powered by Vercel's Next.js framework. Programming languages utilized are TypeScript, CSS, and HTML in conjunction written in .tsx files. This project aims to provide a fun and interactive experience for playing the classic card game Blackjack online. The game will offer the option of playing by yourself or alongside your friends against a singular dealer. With the help of websockets using Socket.IO it is possible to handle real-time bi-directional communication between the web client and the server, making multiplayer tables possible. [Vercel](vercel.com) doesn't directly support websockets but does allow 3rd party providers to implement websockets into Vercel's serverless functions. We have decided to use [Ably](https://ably.com/) since it's free and has a good reputation for ease-of-use and functionality.
 
 <h2 align="center"> 🛠️ Frameworks, Tools & Languages </h2>
 <h3 align="center">
