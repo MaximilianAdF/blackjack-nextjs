@@ -8,7 +8,9 @@ Welcome to the Blackjack Game project! This is a web-based application built usi
     
 [![Tools](https://skillicons.dev/icons?i=react,nextjs,ts,html,css)](https://skillicons.dev)
 <img src="https://gits-15.sys.kth.se/storage/user/23641/files/93a5954f-ac6c-43b9-8449-c213998304bb" alt="Socket.IO" width="50"><br>
-[![Powered by Vercel](https://raw.githubusercontent.com/abumalick/powered-by-vercel/master/powered-by-vercel.svg)](https://vercel.com?utm_source=powered-by-vercel)
+[![Powered by Vercel](https://raw.githubusercontent.com/abumalick/powered-by-vercel/master/powered-by-vercel.svg)](https://vercel.com?utm_source=powered-by-vercel)<br>
+<img src="https://github.com/MaximilianAdF/blackjack-nextjs/assets/63980031/76ec10a0-b562-48ff-ae79-f6d6c5214855" alt="ALBY" width="100">
+
 
 </h3>
 <br>
