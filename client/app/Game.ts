@@ -2,6 +2,7 @@ import { Chip } from './Chip';
 import { Deck } from './Deck';
 import { Player } from './Player';
 import { Card } from './Card';
+import { Hand } from './Hand';
 
 export class Game {
     private players: Player[];
@@ -13,7 +14,7 @@ export class Game {
     constructor(Players: Player[] = [],dealer: Card[]=[], deck: Deck|null =null,roundWinners: Player[] = [], numberOfPlayers: number = 1) {
         // Initialize players array with 5 zeros
         if (Players.length ==0 ){
-            this.players = Array(5).fill(new Player(0)); // Assuming Player constructor is parameterless
+            this.players = Array(5).fill(new Player(0, true)); // Assuming Player constructor is parameterless
         }else {
             this.players = Players
         }
@@ -31,6 +32,16 @@ export class Game {
 
     }
 
+
+    static fromObject(obj: any): Game {
+        return new Game(
+            obj.players.map((player: any) => Player.fromObject(player)),
+            obj.dealer.map((card: any) => Card.fromObject(card)),
+            Deck.fromObject(obj.deck),
+            obj.roundWinners.map((player: any) => Player.fromObject(player)),
+            obj.numberOfPlayers   
+        )
+    }
 
     public getdealer(){
         return this.dealer;
@@ -160,18 +171,17 @@ export class Game {
      */
 
     public startGame(): void {
-        
         for (let i = 0; i < 2; i++) {
-            for (const player of this.players) { // check if all players have passed or bet
+            for (const player of this.players) {
                 if (!player.passed) {
-                    if (player.getHand() == null) {
-                        throw new Error('Player has not bet yet');
-                    }else{
-                        player.getHand().hit(this.deck);// give the player a card
+                    if (!player.hasHand()) {
+                        throw new Error('Player has not made a hand yet'); // Modified error message
+                    } else {
+                        player.getHand().hit(this.deck);
                     }
                 }
             }
-            const card = this.deck.dealCard();// ggive the dealer a card
+            const card = this.deck.dealCard();
             if (card) {
                 this.dealer.push(card);
             }

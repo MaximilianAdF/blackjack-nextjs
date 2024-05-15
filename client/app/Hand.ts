@@ -14,13 +14,22 @@ export class Hand {
      * Constructor for the Hand class
      * @param betAmount
      */
-    constructor(playerBalance: Balance, betAmount: number,  hasSplit: boolean = false, cards: Card[] = []) {
+    constructor(playerBalance: Balance, betAmount: number, hasDouble: boolean = false, hasSplit: boolean = false, hasStand: boolean = false, cards: Card[] = []) {
         this.playerBalance = playerBalance;
         this.betAmount = betAmount;
         this.hasDouble = false;
         this.hasSplit = hasSplit;
         this.hasStand = false;
         this.cards = cards;
+    }
+
+    static fromObject(obj: any): Hand {
+        const cards: Card[] = [];
+        console.log(obj);
+        for (const card of obj.cards) {
+            cards.push(Card.fromObject(card));
+        }
+        return new Hand(new Balance(obj.playerBalance), obj.betAmount, obj.hasDouble, obj.hasSplit, obj.hasStand, cards);
     }
 
 
@@ -95,7 +104,7 @@ export class Hand {
             this.hit(deck) // Hit once to get a new card for the original hand
 
             // New 2nd hand
-            const newHand = new Hand(this.playerBalance, this.betAmount, this.hasSplit, [this.cards[1]]); // Create a new hand with the second card
+            const newHand = new Hand(this.playerBalance, this.betAmount, this.hasDouble, this.hasSplit, this.hasStand, [this.cards[1]]); // Create a new hand with the second card
             newHand.hit(deck); // Hit once to get a new card for the new hand
 
             return [this, newHand];

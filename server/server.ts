@@ -20,19 +20,20 @@ io.on('connection', (socket: Socket) => {
         socket.emit('currentGame', currentGame);
     }
 
+
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
 
     socket.on('newGame', (game) => {
         console.log('new game received');
-        console.log(game);
-
-        // Update the current game state
-        currentGame = game;
-
-        // Broadcast the new game state to all connected sockets
-        io.emit('gameUpdate', game);
+        if (!currentGame) {
+          currentGame = game;
+          io.emit('currentGame', currentGame);
+        } else {
+          console.log('game already exists');
+          socket.emit('currentGame', currentGame);
+        }
     });
 });
 

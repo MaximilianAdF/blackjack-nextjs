@@ -11,9 +11,15 @@ export class Player {
      * Constructor for the Player class
      * @param balance 
      */
-    constructor(amount: number) {
+    constructor(amount: number, passed: boolean = false, hand: Hand | null = null) {
         this.balance = new Balance(amount);
-        this.hand = null;
+        this.passed = passed;
+        this.hand = hand;
+    }
+
+    static fromObject(obj: any): Player {
+        const hand = obj.hand ? Hand.fromObject(obj.hand) : null; // If the player has a hand, create a Hand object from the object
+        return new Player(obj.balance, obj.passed, hand);
     }
 
     /**
@@ -60,6 +66,10 @@ export class Player {
     }
 
 
+    public hasHand(): boolean {
+        return this.hand !== null;
+    }
+
     /**
      * Return the cards in the players hand
      * @param 
@@ -70,7 +80,6 @@ export class Player {
         } else{
             throw new Error('No hand have been made yet');
         }
-
     }
 
     public removeHand(): void {

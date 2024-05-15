@@ -3,9 +3,19 @@ import { Card } from './Card';
 export class Deck {
     private deckOfCards: Card[]
 
-    constructor(numDecks: number = 1) {
-        this.deckOfCards = [];
-        this.createDeck(Math.min(numDecks, 8));
+    constructor(numDecks: number = 1, deckOfCards: Card[] = []) {
+        this.deckOfCards = deckOfCards;
+        if (deckOfCards.length === 0) {
+            this.createDeck(Math.min(numDecks, 8));
+        }
+    }
+
+    static fromObject(obj: any): Deck {
+        const deckOfCards: Card[] = [];
+        for (const card of obj.deckOfCards) {
+            deckOfCards.push(Card.fromObject(card));
+        }
+        return new Deck(1, deckOfCards);
     }
 
     /**

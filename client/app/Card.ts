@@ -14,6 +14,10 @@ export class Card {
         this.cardName = this.extendedRank(this.rank) + ' of ' + this.extendedSuit(this.suit);
     }
 
+    static fromObject(obj: any): Card {
+        return new Card(obj.rank + obj.suit);
+    }
+
     // Returns the written out suit of the card
     private extendedSuit(suit: string): string {
         switch (suit) {

@@ -12,37 +12,38 @@
   /** TODO: Add grainy look to the suit symbols */
   /** Making this responsive is gonna be fun  */
   const Table: FC = () => {
-
     const [currGame, setCurrGame] = useState<Game | null>(null);
-
+    const [socket, setSocket] = useState<any>(null);
+  
     useEffect(() => {
       // Initialize socket
-      const socket = io("http://localhost:3001");
+      const newSocket = io("http://localhost:3001");
+      setSocket(newSocket);
   
-      // Initialize game and player
-      const game = new Game();
-      game.addPlayer(new Player(1000));
-      game.GetPlayer(0).bet(10);
-      game.startGame();
-  
-      setCurrGame(game); // set the current game state as a game object
-  
-      socket.emit("newGame", game); // send game to server as json
-      socket.on("newGame", (game) => { // receive game from server as json
-        game = JSON.parse(game);
-        setCurrGame(game);
+      newSocket.on("currentGame", (game) => {
+        const parsedGame = JSON.parse(game);
+        const newGame = Game.fromObject(parsedGame);
+        console.log(newGame);
+        setCurrGame(newGame);
       });
-      
-      socket.on("gameUpdate", (game) => {
-        game = JSON.parse(game);
-        setCurrGame(game);
-      });
-
+  
       return () => {
         // Cleanup socket connection
-        socket.disconnect();
+        newSocket.disconnect();
       };
     }, []);
+  
+    useEffect(() => {
+      if (socket && !currGame) {
+        const game = new Game();
+        game.addPlayer(new Player(1000));
+        game.GetPlayer(0).bet(10);
+        console.log(game.GetPlayer(0).getHand());
+        game.startGame();
+        setCurrGame(game);
+        socket.emit("newGame", JSON.stringify(game));
+      }
+    }, [socket, currGame]);
 
     
     const suitPaths = [
