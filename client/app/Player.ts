@@ -5,6 +5,7 @@ import { Hand } from './Hand';
 export class Player {
     private hand: Hand | null;
     private balance: Balance;
+    public passed: boolean = false;
 
     /**
      * Constructor for the Player class
@@ -62,14 +63,20 @@ export class Player {
      * Return the cards in the players hand
      * @param 
      */
-    public getHand(): Card[] {
+    public getHand(): Hand {
         if( this.hand != null){
-            return this.hand.getCards();
+            return this.hand;
         } else{
             throw new Error('No hand have been made yet');
         }
 
     }
+
+    public removeHand(): void {
+        this.hand = null;
+    }
+
+
 
 
 
