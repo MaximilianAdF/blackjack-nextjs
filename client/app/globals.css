@@ -221,3 +221,18 @@ body {
     font-style: italic;
     fill: white;
 }
+
+.player-stat {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    top: 100%;
+}
+
+.player-stat h2 {
+    font-family: 'Volkorn';
+    font-size: 100%;
+    color: white;
+}

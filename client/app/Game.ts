@@ -173,7 +173,7 @@ export class Game {
     public startGame(): void {
         for (let i = 0; i < 2; i++) {
             for (const player of this.players) {
-                if (!player.passed) {
+                if (!player.hasPassed()) {
                     if (!player.hasHand()) {
                         throw new Error('Player has not made a hand yet'); // Modified error message
                     } else {

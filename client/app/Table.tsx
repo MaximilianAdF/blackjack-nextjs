@@ -38,7 +38,6 @@
         const game = new Game();
         game.addPlayer(new Player(1000));
         game.GetPlayer(0).bet(10);
-        console.log(game.GetPlayer(0).getHand());
         game.startGame();
         setCurrGame(game);
         socket.emit("newGame", JSON.stringify(game));
@@ -129,23 +128,84 @@
         </div>
         <div className="player-squares">
           <div className="player-square">
-            {currGame?.GetPlayer(0).getHand().getCards().map((card, index) => {
-              const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
-              const cardImage = require(`../assets/cards/${cardPath}`).default;
-              
-              return (
-                <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager" />
-              );
-            })}
-            
+            {currGame?.GetPlayer(3).hasPassed() ? (
+              // The player has passed, render message
+              <div className="player-stat"><h2>Player has passed</h2></div>
+              ) : (
+              // The player has not passed, render the cards
+              currGame?.GetPlayer(3).getHand().getCards().map((card, index) => {
+                const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+                const cardImage = require(`../assets/cards/${cardPath}`).default;
+
+                return (
+                  <Image key={index} src={cardImage} alt={`card ${cardPath}`}/>
+                );
+              })
+            )}        
           </div>
           <div className="player-square">
+            {currGame?.GetPlayer(1).hasPassed() ? (
+              // The player has passed, render nothing or a specific message
+              <div className="player-stat"><h2>Player has passed</h2></div>
+              ) : (
+              // The player has not passed, render the cards
+              currGame?.GetPlayer(1).getHand().getCards().map((card, index) => {
+                const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+                const cardImage = require(`../assets/cards/${cardPath}`).default;
+
+                return (
+                  <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager" />
+                );
+              })
+            )}
           </div>
           <div className="player-square">
+            {currGame?.GetPlayer(0).hasPassed() ? (
+              // The player has passed, render nothing or a specific message
+              <div className="player-stat"><h2>Player has passed</h2></div>
+              ) : (
+              // The player has not passed, render the cards
+              currGame?.GetPlayer(0).getHand().getCards().map((card, index) => {
+                const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+                const cardImage = require(`../assets/cards/${cardPath}`).default;
+
+                return (
+                  <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager"/>
+                );
+              })
+            )}
           </div>
           <div className="player-square">
+            {currGame?.GetPlayer(2).hasPassed() ? (
+              // The player has passed, render nothing or a specific message
+              <div className="player-stat"><h2>Player has passed</h2></div>
+              ) : (
+              // The player has not passed, render the cards
+              currGame?.GetPlayer(2).getHand().getCards().map((card, index) => {
+                const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+                const cardImage = require(`../assets/cards/${cardPath}`).default;
+
+                return (
+                  <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager" />
+                );
+              })
+            )}
           </div>
           <div className="player-square">
+            {currGame?.GetPlayer(4).hasPassed() ? (
+              // The player has passed, render nothing or a specific message
+              <div className="player-stat"><h2>Player has passed</h2></div>
+              ) : (
+              // The player has not passed, render the cards
+              currGame?.GetPlayer(4).getHand().getCards().map((card, index) => {
+                const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+                const cardImage = require(`../assets/cards/${cardPath}`).default;
+
+                return (
+                  <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager" />
+                );
+              })
+            )}
           </div>
         </div>
         <div className="dealer-info-container">

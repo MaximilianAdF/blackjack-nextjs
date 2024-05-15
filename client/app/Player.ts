@@ -86,7 +86,9 @@ export class Player {
         this.hand = null;
     }
 
-
+    public hasPassed(): boolean {
+        return this.passed;
+    }
 
 
 
