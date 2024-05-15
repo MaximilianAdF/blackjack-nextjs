@@ -7,14 +7,36 @@ export class Game {
     private players: Player[];
     private dealer: Card[];
     private deck: Deck;
-    private roundWinners: Player[] = [];
-    private numberOfPlayers: number = 1;
+    private roundWinners;
+    private numberOfPlayers;
 
-    constructor() {
+    constructor(Players: Player[] = [],dealer: Card[]=[], deck: Deck|null =null,roundWinners: Player[] = [], numberOfPlayers: number = 1) {
         // Initialize players array with 5 zeros
-        this.players = Array(5).fill(new Player(0)); // Assuming Player constructor is parameterless
-        this.dealer = [];
-        this.deck = new Deck();
+        if (Players.length ==0 ){
+            this.players = Array(5).fill(new Player(0)); // Assuming Player constructor is parameterless
+        }else {
+            this.players = Players
+        }
+
+        this.roundWinners = roundWinners;
+        this.numberOfPlayers = numberOfPlayers;
+        this.dealer = dealer;
+
+        if (deck!=null){
+            this.deck = deck;
+
+        }else{
+            this.deck = new Deck();
+        }
+
+    }
+
+
+    public getdealer(){
+        return this.dealer;
+    }
+    public playerHit(index:number){
+        this.players[index].getHand().hit(this.deck);
     }
 
     /**
@@ -78,6 +100,7 @@ export class Game {
         }
     }
 
+
     /**
      * Remove a player from the game
      * @param Player
@@ -92,6 +115,16 @@ export class Game {
         }
     }
     
+
+
+    /**
+     * GetPlayer
+     */
+    public GetPlayer(index: number): Player {
+        return this.players[index];
+        
+    }
+
 
     /**
      * end round
@@ -127,18 +160,21 @@ export class Game {
      */
 
     public startGame(): void {
-        for (const player of this.players) { // check if all players have passed or bet
-            if (!player.passed) {
-                if (player.getHand() == null) {
-                    throw new Error('Player has not bet yet');
-                }else{
-                    player.getHand().hit(this.deck);// give the player a card
-                }
+        
+        for (let i = 0; i < 2; i++) {
+            for (const player of this.players) { // check if all players have passed or bet
+                if (!player.passed) {
+                    if (player.getHand() == null) {
+                        throw new Error('Player has not bet yet');
+                    }else{
+                        player.getHand().hit(this.deck);// give the player a card
+                    }
                 }
             }
             const card = this.deck.dealCard();// ggive the dealer a card
             if (card) {
                 this.dealer.push(card);
+            }
         }
     }
 }

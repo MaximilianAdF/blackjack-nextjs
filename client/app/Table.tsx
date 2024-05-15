@@ -1,16 +1,50 @@
   "use client";
 
   import usewindowDimensions from '@/app/utils/window';
-  import { FC, useEffect } from "react";
+  import { FC, useEffect, useState } from "react";
   import Image from "next/image";
   import {io} from "socket.io-client";
-  const socket = io("http://localhost:3001");
-  
+  import {Game} from "./Game";
+  import {Player} from "./Player";
+
   
 
   /** TODO: Add grainy look to the suit symbols */
   /** Making this responsive is gonna be fun  */
   const Table: FC = () => {
+
+    const [currGame, setCurrGame] = useState<Game | null>(null);
+
+    useEffect(() => {
+      // Initialize socket
+      const socket = io("http://localhost:3001");
+  
+      // Initialize game and player
+      const game = new Game();
+      game.addPlayer(new Player(1000));
+      game.GetPlayer(0).bet(10);
+      game.startGame();
+  
+      setCurrGame(game); // set the current game state as a game object
+  
+      socket.emit("newGame", game); // send game to server as json
+      socket.on("newGame", (game) => { // receive game from server as json
+        game = JSON.parse(game);
+        setCurrGame(game);
+      });
+      
+      socket.on("gameUpdate", (game) => {
+        game = JSON.parse(game);
+        setCurrGame(game);
+      });
+
+      return () => {
+        // Cleanup socket connection
+        socket.disconnect();
+      };
+    }, []);
+
+    
     const suitPaths = [
       require("../assets/suits/DiamondPattern.png"),
       require("../assets/suits/ClubPattern.png"),
@@ -94,6 +128,15 @@
         </div>
         <div className="player-squares">
           <div className="player-square">
+            {currGame?.GetPlayer(0).getHand().getCards().map((card, index) => {
+              const cardPath = `${card.getRank()}${card.getSuit()}.svg`;
+              const cardImage = require(`../assets/cards/${cardPath}`).default;
+              
+              return (
+                <Image key={index} src={cardImage} alt={`card ${cardPath}`} loading="eager" />
+              );
+            })}
+            
           </div>
           <div className="player-square">
           </div>

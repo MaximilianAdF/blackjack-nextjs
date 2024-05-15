@@ -5,7 +5,7 @@ import { Hand } from './Hand';
 export class Player {
     private hand: Hand | null;
     private balance: Balance;
-    public passed: boolean = false;
+    public passed: boolean = true;
 
     /**
      * Constructor for the Player class
@@ -31,7 +31,8 @@ export class Player {
     public bet(amount: number): void {
         if (amount > this.balance.getValue()) {
             throw new Error('Insufficient balance');
-        } else if (amount < 0) {
+        } else if (amount > 0) {
+            this.passed = false;
             this.balance.removeBalance(amount);
             this.newHand(this.balance, amount);
         }

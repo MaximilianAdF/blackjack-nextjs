@@ -59,14 +59,8 @@ export class Balance {
      */
     public removeBalance(amount:number): void {
         if (amount <= this.value) {
-            let remainingAmount = amount;
-            for (const value of this.chipValues) {
-                const chip = new Chip(value);
-                const numberOfChips = Math.floor(remainingAmount / value);
-                this.removeChips(chip, numberOfChips)
-                remainingAmount -= numberOfChips;
-            }
             this.value -= amount;
+            this.calculateChipStack();
         } else {
             throw new Error('Not enough balance');
         }
@@ -77,14 +71,8 @@ export class Balance {
      * @param amount 
      */
     public addBalance(amount: number): void {
-        let remainingAmount = amount;
-        for (const value of this.chipValues) {
-            const chip = new Chip(value);
-            const numberOfChips = Math.floor(remainingAmount / value);
-            this.addChips(chip, numberOfChips);
-            remainingAmount -= numberOfChips * value;
-        }
         this.value += amount;
+        this.calculateChipStack();
     }
 
 

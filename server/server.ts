@@ -1,22 +1,39 @@
-import { Server } from 'socket.io';
+import express from 'express';
+import http from 'http';
+import { Server as SocketIOServer, Socket } from 'socket.io';
 
-const express = require('express');
-const http = require('http');
-const app = express()
+const app = express();
 const server = http.createServer(app);
-
-const io = new Server(server, {
+const io = new SocketIOServer(server, {
     cors: {
         origin: '*',
     }
 });
 
-io.on('connection', (socket) => {
+let currentGame: any = null; // Initialize the current game state
+
+io.on('connection', (socket: Socket) => {
     console.log('a user connected');
-    // On a new connection, need to load the current game or create a new one if first player
-    // All the info/data for the game will be sent to the server and stored in memory (arrays, objects, etc)
-    // When new players join, they will be sent the current game state so it can be displayed on their screen
-    // When a player makes a move, the server will update the game state and send it to all players
+
+    // When a new connection is established, send the current game state (if available) to the new connection
+    if (currentGame) {
+        socket.emit('currentGame', currentGame);
+    }
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+
+    socket.on('newGame', (game) => {
+        console.log('new game received');
+        console.log(game);
+
+        // Update the current game state
+        currentGame = game;
+
+        // Broadcast the new game state to all connected sockets
+        io.emit('gameUpdate', game);
+    });
 });
 
 server.listen(3001, () => {
