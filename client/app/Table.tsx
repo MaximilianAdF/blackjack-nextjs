@@ -1,8 +1,12 @@
   "use client";
 
   import usewindowDimensions from '@/app/utils/window';
+  import { FC, useEffect } from "react";
   import Image from "next/image";
-  import { FC } from "react";
+  import {io} from "socket.io-client";
+  const socket = io("http://localhost:3001");
+  
+  
 
   /** TODO: Add grainy look to the suit symbols */
   /** Making this responsive is gonna be fun  */

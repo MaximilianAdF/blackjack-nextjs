@@ -6,10 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "next lint",
-    "start": "next start npm-run-all --parallel start-client start-server",
-    "start-client": "cd client && npm run dev",
-    "start-server": "cd server && npm run server"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
