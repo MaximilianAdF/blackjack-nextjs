@@ -119,6 +119,7 @@ io.on('connection', (socket: Socket) => {
         else if (playerCount === 2) turnOrder = [1, 0];
         else if (playerCount === 3) turnOrder = [1, 0, 2];
         else if (playerCount === 4) turnOrder = [3, 1, 0, 2];
+        else if (playerCount === 5) turnOrder = [3, 1, 0, 2, 4];
         console.log('🔄 Turn order:', turnOrder + '\n');
         
         const nextPlayer = turnOrder.shift();
@@ -171,7 +172,7 @@ io.on('connection', (socket: Socket) => {
         const socketID = data.socketID;
         const betAmount = data.bet;
 
-        console.log(`💰 Player ${socketID} bet ${betAmount} | ${playerDidCount+1}/${currentGame.getPlayerCount()}`)
+        console.log(`💰 Player ${socketID} bet ${betAmount} | ${playerDidCount+1}/${socketIDQueue.length%6}`)
         if (currentGame) {
             currentGame.getPlayerByID(socketID).bet(betAmount);
             playerDidCount++;
@@ -204,7 +205,7 @@ io.on('connection', (socket: Socket) => {
         if (!currentGame && !timer) {
             console.log(`⏳ Starting 30 second timer for players to join...\n`);
             
-            let secondsRemaining = 5;
+            let secondsRemaining = 30;
             timer = setInterval(() => {
                 if (secondsRemaining >= 0) {
                     io.emit('timer', secondsRemaining);
@@ -230,14 +231,8 @@ io.on('connection', (socket: Socket) => {
         }
     };
     beginGame();
-    
-    
-
-
-
-
 });
 
-server.listen(10000, () => {
-    console.log('👂 Listening on *:10000');
+server.listen(3000, () => {
+    console.log('👂 Listening on *:3000');
 });

@@ -30,7 +30,7 @@ const Table: FC = () => {
 
 
   useEffect(() => {
-    const socket = io("wss://blackjack-backend.onrender.com");
+    const socket = io("wss:/blackjack-nextjs.onrender.com");
     setSocket(socket);
     
     // On connection, set the socket ID
@@ -92,6 +92,8 @@ const Table: FC = () => {
         setShowPlayerButtons(true);
       }
     });
+
+
 
     socket.on('nextPlayer', (playerID) => {
       console.log(`Next player: ${playerID}`);
@@ -165,6 +167,7 @@ const Table: FC = () => {
       )
     }
   }
+
 
   const renderPlayerButtons = (playerID:number) => {
     return (
