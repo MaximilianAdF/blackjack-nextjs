@@ -14,9 +14,12 @@ export class Game {
     constructor(Players: Player[] = [],dealer: Card[]=[], deck: Deck|null =null,roundWinners: Player[] = [], numberOfPlayers: number = 1) {
         // Initialize players array with 5 zeros
         if (Players.length ==0 ){
-            this.players = Array(5).fill(new Player(0, true)); // Assuming Player constructor is parameterless
+            this.players = Array(5).fill(new Player("o",0, true)); // Assuming Player constructor is parameterless
         }else {
             this.players = Players
+            while (this.players.length < 5) {
+                this.players.push(new Player("o",0, true));
+            }
         }
 
         this.roundWinners = roundWinners;
@@ -39,11 +42,11 @@ export class Game {
             obj.dealer.map((card: any) => Card.fromObject(card)),
             Deck.fromObject(obj.deck),
             obj.roundWinners.map((player: any) => Player.fromObject(player)),
-            obj.numberOfPlayers   
+            obj.numberOfPlayers
         )
     }
 
-    public getdealer(){
+    public getDealer(){
         return this.dealer;
     }
     public playerHit(index:number){
@@ -72,7 +75,7 @@ export class Game {
 
     public dealerMove(): void {
 
-        while (this.getHandValue(this.dealer) >= 17){
+        while (this.getHandValue(this.dealer) <= 17){
             //hit
             const card = this.deck.dealCard();
             if (card) {
@@ -84,18 +87,18 @@ export class Game {
         } 
         if (this.getHandValue(this.dealer) > 21) {
             for (const player of this.players) {
-                if (this.getHandValue(player.getHand().getCards()) <= 21) {
+                if (player.getID() != 'o' && this.getHandValue(player.getHand().getCards()) <= 21) {
                     this.roundWinners.push(player);
                 }
             }
         }
         else{
             for (const player of this.players) {
-                if (this.getHandValue(player.getHand().getCards()) > this.getHandValue(this.dealer) && this.getHandValue(player.getHand().getCards()) <= 21) {
-                        this.roundWinners.push(player);
-                    }
+                if (player.getID() != 'o' && this.getHandValue(player.getHand().getCards()) > this.getHandValue(this.dealer) && this.getHandValue(player.getHand().getCards()) <= 21) {
+                    this.roundWinners.push(player);
                 }
             }
+        }
     }
 
     /**
@@ -103,7 +106,7 @@ export class Game {
      * @param Player
      */
     public addPlayer(player: Player): void {
-        const zeroBalanceIndex = this.players.findIndex(player => player.getBalance() === 0);
+        const zeroBalanceIndex = this.players.findIndex(player => player.getBalance().getValue() === 0);
         if (zeroBalanceIndex !== -1) {
             this.players[zeroBalanceIndex] = player;
         } else{
@@ -122,7 +125,7 @@ export class Game {
             // Remove the player
             this.players.splice(index, 1);
             // Replace with a new player with 0 balance
-            this.players.splice(index, 0, new Player(0)); 
+            this.players.splice(index, 0, new Player("o",0)); 
         }
     }
     
@@ -136,33 +139,35 @@ export class Game {
         
     }
 
+    public getPlayerByID(id: string): Player {
+        return this.players.find(player => player.getID() === id)!;
+    }
+
 
     /**
-     * end round
+     * Check the player que
      */
-    public EndRound(): void {
-        this.dealerMove();
+    public emptySeat(): Boolean {
+        const zeroBalanceIndex = this.players.findIndex(player => player.getBalance().getValue() === 0);
+        if (zeroBalanceIndex !== -1) {
+            return true
+        } else{
+            return false
+        }
+    }
 
-
-
-        for (const player of this.players) {  // pays out the winners
-            if (this.roundWinners.includes(player)) {
-                player.win();
+    // Get player count
+    public getPlayerCount(): number {
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i].getID() === "o") {
+                return i;
             }
         }
-        this.roundWinners = [];
+        return 5;
+    }
 
-
-        if (this.deck.getNumCards() < 12) {// check if there are enough cards in the deck
-            this.deck = new Deck();
-        }
-
-
-        //empty the hands of the players and dealer
-        for (const player of this.players) {
-            player.removeHand()
-        } 
-        this.dealer = [];
+    public getDeck(): Deck {
+        return this.deck;
     }
 
 
@@ -184,6 +189,26 @@ export class Game {
             const card = this.deck.dealCard();
             if (card) {
                 this.dealer.push(card);
+            }
+        }
+    }
+
+    public dealerHit(): void {
+        this.dealer.push(this.deck.dealCard()!);
+    }
+
+    public awardWinners(): void {
+        const dealerValue = this.getHandValue(this.dealer);
+        for (const player of this.players) {
+            if (player.hasHand()) {
+                const playerValue = this.getHandValue(player.getHand().getCards());
+                if ((playerValue > dealerValue && playerValue <= 21) || (dealerValue > 21 && playerValue <= 21)) {
+                    player.getBalance().updateBalance(player.getBalance().getValue() + player.getHand().getBetAmount() * 2);
+                    this.roundWinners.push(player);
+                } else if (playerValue === dealerValue) {
+                    player.getBalance().updateBalance(player.getBalance().getValue() + player.getHand().getBetAmount());
+                    this.roundWinners.push(player);
+                }
             }
         }
     }

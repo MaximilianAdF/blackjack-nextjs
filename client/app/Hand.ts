@@ -1,6 +1,7 @@
-import { Balance } from './Balance'; 
+import { Balance, chipValues } from './Balance'; 
 import { Card } from './Card';
 import { Deck } from './Deck';
+import { Chip } from './Chip';
 
 export class Hand {
     private playerBalance: Balance; // Number of balance in the player's balance
@@ -9,6 +10,7 @@ export class Hand {
     private hasSplit: boolean;      // Player has chosen to split this hand
     private hasStand: boolean;      // Player has chosen to stand on this hand (No more hit, double, or split)
     private cards: Card[]           // Cards in the hand
+    private chips: Map<Chip, number> // Chips on the hand
 
     /**
      * Constructor for the Hand class
@@ -21,15 +23,16 @@ export class Hand {
         this.hasSplit = hasSplit;
         this.hasStand = false;
         this.cards = cards;
+        this.chips = new Map();
+        this.calculateChips();
     }
 
     static fromObject(obj: any): Hand {
         const cards: Card[] = [];
-        console.log(obj);
         for (const card of obj.cards) {
             cards.push(Card.fromObject(card));
         }
-        return new Hand(new Balance(obj.playerBalance), obj.betAmount, obj.hasDouble, obj.hasSplit, obj.hasStand, cards);
+        return new Hand(new Balance(obj.playerBalance.value), obj.betAmount, obj.hasDouble, obj.hasSplit, obj.hasStand, cards);
     }
 
 
@@ -123,10 +126,10 @@ export class Hand {
      * @returns boolean
      */
     public canDoubleDown(): boolean {
-        return this.betAmount <= this.playerBalance.getValue() &&
-               this.cards.length === 2 &&
-               !this.hasDouble &&
-               !this.hasStand;
+        return (this.betAmount <= this.playerBalance.getValue() && 
+                this.cards.length === 2 && 
+                !this.hasDouble && 
+                !this.hasStand);
     }
 
 
@@ -140,13 +143,30 @@ export class Hand {
         if (!this.canDoubleDown()) {
             throw new Error('Cannot double down on this hand: ' + JSON.stringify(this));
         } else {
-            this.hasDouble = true;
-            this.betAmount *= 2;
             this.playerBalance.removeBalance(this.betAmount); // Remove the bet amount for new hand from the player's balance
-            this.hit(deck); // Automatically hit once after doubling down
+            this.hit(deck);
+            this.hasDouble = true;
         }
     }
 
+
+    /**
+     * Calculate the chips on the hand
+     * @param 
+     * @returns void
+     */
+    public calculateChips(): void {
+        let remainingBalance = this.betAmount;
+        const chipStack = new Map<Chip, number>();
+
+        for (const value of chipValues) {
+            const chip = new Chip(value);
+            const chipAmount = Math.floor(remainingBalance / value);
+            chipStack.set(chip, chipAmount);
+            remainingBalance -= chipAmount * value;
+        }
+        this.chips = chipStack;
+    }
 
 
     /**
@@ -182,5 +202,17 @@ export class Hand {
      */
     public getCards(): Card[] {
         return this.cards;
+    }
+
+    public getChips(): Map<Chip, number> {
+        return this.chips;
+    }
+
+    public getBalance(): Balance {
+        return this.playerBalance;
+    }
+
+    public didStand(): boolean {
+        return this.hasStand;
     }
 }

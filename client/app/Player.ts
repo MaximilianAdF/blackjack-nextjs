@@ -3,23 +3,25 @@ import { Balance } from './Balance';
 import { Hand } from './Hand';
 
 export class Player {
+    private ID: string;
     private hand: Hand | null;
     private balance: Balance;
-    public passed: boolean = true;
+    private passed: boolean = true;
 
     /**
      * Constructor for the Player class
      * @param balance 
      */
-    constructor(amount: number, passed: boolean = false, hand: Hand | null = null) {
+    constructor(ID: string, amount: number, passed: boolean = false, hand: Hand | null = null) {
         this.balance = new Balance(amount);
         this.passed = passed;
         this.hand = hand;
+        this.ID = ID;
     }
 
     static fromObject(obj: any): Player {
         const hand = obj.hand ? Hand.fromObject(obj.hand) : null; // If the player has a hand, create a Hand object from the object
-        return new Player(obj.balance, obj.passed, hand);
+        return new Player(obj.ID, obj.balance.value, obj.passed, hand);
     }
 
     /**
@@ -61,8 +63,8 @@ export class Player {
      * Value of balance
      * @param 
      */
-    public getBalance(): number {
-        return this.balance.getValue();
+    public getBalance(): Balance {
+        return this.balance;
     }
 
 
@@ -89,7 +91,12 @@ export class Player {
     public hasPassed(): boolean {
         return this.passed;
     }
+    
+    public pass():  void {
+        this.passed = true;
+    }
 
-
-
+    public getID(): string {
+        return this.ID;
+    }
 }

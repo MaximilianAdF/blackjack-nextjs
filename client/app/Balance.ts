@@ -1,7 +1,8 @@
 import { Chip } from './Chip';
+export const chipValues: number[] = [5000, 1000, 100, 50, 25, 10, 5, 1];
+
 
 export class Balance {
-    private chipValues: number[] = [5000, 1000, 100, 50, 25, 10, 5, 1];
     private chipStack: Map<Chip, number>;
     private value: number;
 
@@ -10,7 +11,7 @@ export class Balance {
         this.chipStack = new Map();
         this.calculateChipStack();
     }
-
+    
     /**
      * Mehtod for calculating the chip stack based on the user's balance
      * @returns void
@@ -19,7 +20,7 @@ export class Balance {
         let remainingBalance = this.value;
         this.chipStack.clear();
 
-        for (const value of this.chipValues) {
+        for (const value of chipValues) {
             const chip = new Chip(value);
             const amount = Math.floor(remainingBalance / value);
             this.chipStack.set(chip, amount);
@@ -86,12 +87,14 @@ export class Balance {
     }
 
 
-    /**
-     * Method to get the amount of chips of a specific type in the user's chip stack
-     * @param chip
-     * @returns number
-     */
+    // Method to get the total value of the user's chip stack
     public getValue(): number {
-        return this.value|| 0;
-    }   
+        return this.value;
+    }
+    
+    // Method to update player balance
+    public updateBalance(amount: number): void {
+        this.value = amount;
+        this.calculateChipStack();
+    }
 }
