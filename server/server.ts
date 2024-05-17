@@ -190,7 +190,7 @@ io.on('connection', (socket: Socket) => {
         if (!gameReset) {
             gameReset = true;
             const prevGame = Game.fromObject(game);
-            console.log('🔄 Resetting game...')
+            console.log('\n🔄 Resetting game...')
             currentGame = null;
             timer = null;
             playerDidCount = 0;

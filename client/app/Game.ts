@@ -10,8 +10,9 @@ export class Game {
     private deck: Deck;
     private roundWinners;
     private numberOfPlayers;
+    private roundPushers;
 
-    constructor(Players: Player[] = [],dealer: Card[]=[], deck: Deck|null =null,roundWinners: Player[] = [], numberOfPlayers: number = 1) {
+    constructor(Players: Player[] = [],dealer: Card[]=[], deck: Deck|null =null,roundWinners: Player[] = [], roundPushers: Player[] = [], numberOfPlayers: number = 1) {
         // Initialize players array with 5 zeros
         if (Players.length ==0 ){
             this.players = Array(5).fill(new Player("o",0, true)); // Assuming Player constructor is parameterless
@@ -23,6 +24,7 @@ export class Game {
         }
 
         this.roundWinners = roundWinners;
+        this.roundPushers = roundPushers;
         this.numberOfPlayers = numberOfPlayers;
         this.dealer = dealer;
 
@@ -42,6 +44,7 @@ export class Game {
             obj.dealer.map((card: any) => Card.fromObject(card)),
             Deck.fromObject(obj.deck),
             obj.roundWinners.map((player: any) => Player.fromObject(player)),
+            obj.roundPushers.map((player: any) => Player.fromObject(player)),
             obj.numberOfPlayers
         )
     }
@@ -197,6 +200,14 @@ export class Game {
         this.dealer.push(this.deck.dealCard()!);
     }
 
+    public getRoundWinners(): Player[] {
+        return this.roundWinners;
+    }
+
+    public getRoundPushers(): Player[] {
+        return this.roundPushers;
+    }
+
     public awardWinners(): void {
         const dealerValue = this.getHandValue(this.dealer);
         for (const player of this.players) {
@@ -207,7 +218,7 @@ export class Game {
                     this.roundWinners.push(player);
                 } else if (playerValue === dealerValue) {
                     player.getBalance().updateBalance(player.getBalance().getValue() + player.getHand().getBetAmount());
-                    this.roundWinners.push(player);
+                    this.roundPushers.push(player);
                 }
             }
         }
