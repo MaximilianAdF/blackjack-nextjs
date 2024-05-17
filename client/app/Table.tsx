@@ -30,7 +30,7 @@ const Table: FC = () => {
 
 
   useEffect(() => {
-    const socket = io("wws://blackjack-backend.onrender.com");
+    const socket = io("wss://blackjack-backend.onrender.com");
     setSocket(socket);
     
     // On connection, set the socket ID
