@@ -173,7 +173,11 @@ io.on('connection', (socket: Socket) => {
 
         console.log(`💰 Player ${socketID} bet ${betAmount} | ${playerDidCount+1}/${currentGame.getPlayerCount()}`)
         if (currentGame) {
-            currentGame.getPlayerByID(socketID).bet(betAmount);
+            try {
+                currentGame.getPlayerByID(socketID).bet(betAmount);
+            } catch {
+                console.log('🚫 Player does not have balance left');
+            }
             playerDidCount++;
 
             // If all players have placed their bets, emit the new game state
@@ -204,7 +208,7 @@ io.on('connection', (socket: Socket) => {
         if (!currentGame && !timer) {
             console.log(`⏳ Starting 30 second timer for players to join...\n`);
             
-            let secondsRemaining = 5;
+            let secondsRemaining = 30;
             timer = setInterval(() => {
                 if (secondsRemaining >= 0) {
                     io.emit('timer', secondsRemaining);
